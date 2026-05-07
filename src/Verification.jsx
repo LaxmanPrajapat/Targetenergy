@@ -1,8 +1,42 @@
 
-import React from "react";
+import React, { useState } from "react";
 import logo from "./assets/target-energy-logo.jpg";
 
 export default function Verification() {
+  const [openModal, setOpenModal] = useState(false);
+const [internId, setInternId] = useState("");
+const [verifiedUser, setVerifiedUser] = useState(null);
+
+const internsData = {
+  "TE101": {
+    name: "Laxman Prajapat",
+    role: "Data Analysis Executive Intern",
+    project: "Solar Energy Dashboard",
+    duration: "1 Month",
+    skills: "React, Excel, SQL, Power BI",
+    status: "Verified",
+  },
+
+  "TE102": {
+    name: "Lokendra Singh",
+    role: "Data Analysis Executive Intern",
+    project: "Solar Energy Dashboard",
+    duration: "1 Month",
+    skills: "React, Excel, SQL, Power BI",
+    status: "Verified",
+  },
+};
+
+const handleVerification = () => {
+  const user = internsData[internId];
+
+  if (user) {
+    setVerifiedUser(user);
+  } else {
+    alert("Invalid Intern ID");
+    setVerifiedUser(null);
+  }
+};
   return (
     <div className="min-h-screen bg-gray-100">
       
@@ -94,9 +128,12 @@ export default function Verification() {
                 </p>
               </div>
 
-              <button className="bg-orange-500 hover:bg-orange-600 text-white px-5 py-3 rounded-lg text-sm sm:text-base font-medium transition">
-                Verify again
-              </button>
+          <button
+  onClick={() => setOpenModal(true)}
+  className="bg-orange-500 hover:bg-orange-600 text-white px-5 py-3 rounded-lg text-sm sm:text-base font-medium transition"
+>
+  Verify Again
+</button>
             </div>
           </div>
         </div>
@@ -151,6 +188,19 @@ export default function Verification() {
               </h3>
             </div>
 
+            {/* Inter ID */}
+            <div>
+              <p className="text-gray-500 text-lg sm:text-2xl mb-2">
+                Employee / Intern ID
+
+
+              </p>
+
+              <h3 className="text-2xl sm:text-3xl font-medium uppercase break-words">
+                TE102
+              </h3>
+            </div>
+
             {/* Program */}
             <div>
               <p className="text-gray-500 text-lg sm:text-2xl mb-2">
@@ -195,6 +245,92 @@ export default function Verification() {
           </div>
         </div>
       </main>
+      {/* Verification Modal */}
+{openModal && (
+  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
+    
+    <div className="bg-white w-full max-w-lg rounded-2xl p-6 shadow-2xl relative">
+      
+      {/* Close Button */}
+      <button
+        onClick={() => setOpenModal(false)}
+        className="absolute top-3 right-4 text-2xl font-bold text-gray-500 hover:text-black"
+      >
+        ×
+      </button>
+
+      <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-center text-gray-800">
+        Verify Employee / Intern
+      </h2>
+
+      {/* Input */}
+      <input
+        type="text"
+        placeholder="Enter Intern ID"
+        value={internId}
+        onChange={(e) => setInternId(e.target.value)}
+        className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-orange-400"
+      />
+
+      {/* Verify Button */}
+      <button
+        onClick={handleVerification}
+        className="w-full mt-4 bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-semibold transition"
+      >
+        Verify
+      </button>
+
+      {/* Result */}
+      {verifiedUser && (
+        <div className="mt-6 bg-gray-100 rounded-2xl p-5 space-y-4">
+          
+          <div>
+            <p className="text-gray-500">Employee Name</p>
+            <h3 className="text-xl font-semibold">
+              {verifiedUser.name}
+            </h3>
+          </div>
+
+          <div>
+            <p className="text-gray-500">Role</p>
+            <h3 className="text-lg font-medium">
+              {verifiedUser.role}
+            </h3>
+          </div>
+
+          <div>
+            <p className="text-gray-500">Project Worked On</p>
+            <h3 className="text-lg font-medium">
+              {verifiedUser.project}
+            </h3>
+          </div>
+
+          <div>
+            <p className="text-gray-500">Duration</p>
+            <h3 className="text-lg font-medium">
+              {verifiedUser.duration}
+            </h3>
+          </div>
+
+          <div>
+            <p className="text-gray-500">Skills</p>
+            <h3 className="text-lg font-medium">
+              {verifiedUser.skills}
+            </h3>
+          </div>
+
+          <div>
+            <p className="text-gray-500">Verification Status</p>
+
+            <span className="inline-block bg-green-100 text-green-700 px-4 py-2 rounded-full font-semibold">
+              {verifiedUser.status}
+            </span>
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+)}
     </div>
   );
 }
