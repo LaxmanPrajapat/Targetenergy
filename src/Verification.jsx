@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import logo from "./assets/target-energy-logo.jpg";
-
+import certificate from "./assets/certificate.jpg";
 export default function Verification() {
   const [openModal, setOpenModal] = useState(false);
 const [internId, setInternId] = useState("");
@@ -146,7 +146,7 @@ const handleVerification = () => {
         <div className="bg-white rounded-2xl shadow-md p-4 sm:p-6">
           <div className="border rounded-lg overflow-hidden relative">
             <img
-              src="/certificate.png"
+              src={certificate}
               alt="Certificate"
               className="w-full object-cover"
             />
